@@ -8,8 +8,6 @@ import { Case } from '../../case';
 export class TablesComponent implements OnInit{
   cases: Case[] = [];
   todayCases=[];
-  countryCases=[];
-  sumOfcases=[];
   constructor(private caseService: CaseService) { }
 
   ngOnInit(): void {

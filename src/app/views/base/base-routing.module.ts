@@ -13,6 +13,7 @@ import { PopoversComponent } from './popovers.component';
 import { ProgressComponent } from './progress.component';
 import { TooltipsComponent } from './tooltips.component';
 import { NavbarsComponent } from './navbars/navbars.component';
+import { EditComponent } from './edit.component';
 
 const routes: Routes = [
   {
@@ -51,6 +52,13 @@ const routes: Routes = [
         component: TablesComponent,
         data: {
           title: 'Tables'
+        }
+      },
+      {
+        path: 'edit/:id',
+        component: EditComponent,
+        data: {
+          title: 'Edit'
         }
       },
       {

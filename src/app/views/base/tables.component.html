@@ -29,7 +29,7 @@
                 <td>{{case.date}}</td>
                 <td>{{case.totalCases}}</td>
                 <td>{{case.totalDeaths}}</td>
-              <td><button class="btn btn-info" routerLink="/edit/{{case.id}}">Edit Case</button></td>
+                <td><button class="btn btn-info" routerLink="/base/edit/{{case.id}}">Edit Case</button></td>
                 <td> <button class="btn btn-danger" (click)="deleteCase(case.id)">Delete</button></td>
               </tr>
             </tbody>
