@@ -1,6 +1,6 @@
 // Angular
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 import { CardsComponent } from './cards.component';
@@ -52,6 +52,7 @@ import { BaseRoutingModule } from './base-routing.module';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     BaseRoutingModule,
     BsDropdownModule.forRoot(),
     TabsModule,

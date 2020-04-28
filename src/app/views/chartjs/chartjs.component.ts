@@ -1,97 +1,246 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import * as Highcharts from 'highcharts';
+import { Case } from '../../case';
+import { CaseService } from '../../case.service';
+import { Router } from '@angular/router';
 @Component({
   templateUrl: 'chartjs.component.html'
 })
-export class ChartJSComponent {
+export class ChartJSComponent implements OnInit{
+  cases: Case[] = [];
+   updateFromInput = false;
+   Highcharts = Highcharts;
+   newcase = [];
+   date = [];
+   countryNames = [];
+   countryCases = [];
+   countryDeaths = [];
+   dailycases = [];
+   dailydeaths =[];
+   sumOfcases = [];
+   sumOfdeaths = [];
+   chartOptions = {
+      chart: {
+         type: 'column'
+      },
+      title: {
+         text: 'Corona New Cases column charts'
+      },
+      series: [],
+      xAxis: {
+         categories: []
+      },
+      exporting: {
+         enabled: false
+      },
+      yAxis: {
+         allowDecimals: false,
+         title: {
+            text: "New Cases"
+         }
+      }
+   };
+   chartOptions1 = {
+      chart: {
+         type: 'column'
+      },
+      title: {
+         text: 'Corona Death Cases column charts'
+      },
+      series: [],
+      xAxis: {
+         categories: []
+      },
+      exporting: {
+         enabled: false
+      },
+      yAxis: {
+         allowDecimals: false,
+         title: {
+            text: "New Deaths"
+         }
+      }
+   };
+   chartOptions2 = {
+      chart: {
+         type: 'pie'
+      },
+      title: {
+         text: 'Corona Total Cases Pie Charts'
+      },
+      tooltip: {
+         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+      },
+      accessibility: {
+         point: {
+            valueSuffix: '%'
+         }
+      },
+      plotOptions: {
+         pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+               enabled: false
+            },
+            showInLegend: true
+         }
+      },
+      series: []
 
-  // lineChart
-  public lineChartData: Array<any> = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'},
-    {data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C'}
-  ];
-  public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public lineChartOptions: any = {
-    animation: false,
-    responsive: true
-  };
-  public lineChartColours: Array<any> = [
-    { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    },
-    { // dark grey
-      backgroundColor: 'rgba(77,83,96,0.2)',
-      borderColor: 'rgba(77,83,96,1)',
-      pointBackgroundColor: 'rgba(77,83,96,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(77,83,96,1)'
-    },
-    { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    }
-  ];
-  public lineChartLegend = true;
-  public lineChartType = 'line';
 
-  // barChart
-  public barChartOptions: any = {
-    scaleShowVerticalLines: false,
-    responsive: true
-  };
-  public barChartLabels: string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-  public barChartType = 'bar';
-  public barChartLegend = true;
+   };
 
-  public barChartData: any[] = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
-  ];
+   chartOptions3 = {
+      chart: {
+         type: 'pie'
+      },
+      title: {
+         text: 'Corona Total Death Cases Pie Charts'
+      },
+      tooltip: {
+         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+      },
+      accessibility: {
+         point: {
+            valueSuffix: '%'
+         }
+      },
+      plotOptions: {
+         pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+               enabled: false
+            },
+            showInLegend: true
+         }
+      },
+      series: []
+   };
+   chartOptions4 = {
+      chart: {
+         type: 'line'
+     },
+     title: {
+         text: 'Daily Corona Cases'
+     },
+     subtitle: {
+         text: '----'
+     },
+     xAxis: {
+         categories: []
+     },
+     yAxis: {
+         title: {
+             text: 'Number Of Cases'
+         }
+     },
+     plotOptions: {
+         line: {
+             dataLabels: {
+                 enabled: true
+             },
+             enableMouseTracking: false
+         }
+     },
+     series: []
+   };
+   constructor(private caseService: CaseService, private router: Router) {
+      /*   if(!this.caseService.isUserLoggedIn()){
+         this.router.navigate(['/login']); 
+        } */
+   }
 
-  // Doughnut
-  public doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
-  public doughnutChartData: number[] = [350, 450, 100];
-  public doughnutChartType = 'doughnut';
+   ngOnInit(): void {
+      this.getCases();
+   }
 
-  // Radar
-  public radarChartLabels: string[] = ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'];
+   getCases(): void {
+      this.caseService.getCases().subscribe(data => {
+         this.cases = data;
+         const totalcases = this.cases.reduce((accum, item) => accum + item.newCase, 0);
+         const totaldeaths = this.cases.reduce((accum, item) => accum + item.newDeath, 0);
+         /* const total=this.cases.reduce((p,c) => p+c.newCase,0); */
+         console.log(totalcases);
+         console.log(totaldeaths);
 
-  public radarChartData: any = [
-    {data: [65, 59, 90, 81, 56, 55, 40], label: 'Series A'},
-    {data: [28, 48, 40, 19, 96, 27, 100], label: 'Series B'}
-  ];
-  public radarChartType = 'radar';
+         this.date = [...new Set(this.cases.map(item => item.date))];
+         const countryNames = [...new Set(this.cases.map(item => item.name))];
+         this.countryDeaths = [];
+         this.countryCases = [];
+         this.dailycases =[];
+         const dates = [... new Set(this.cases.map(item => item.date))];
+         dates.forEach((e) => {
+            const dcases = this.cases.filter(c => c.date == e);
+            this.dailycases = [... this.dailycases,  dcases.reduce((accum, item) => accum + item.newCase, 0),
+            ];
+            this.dailydeaths = [ ... this.dailydeaths,  dcases.reduce((accum, item) => accum + item.newDeath, 0), ]
+            console.warn(this.dailycases);
+         });
 
-  // Pie
-  public pieChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail Sales'];
-  public pieChartData: number[] = [300, 500, 100];
-  public pieChartType = 'pie';
 
-  // PolarArea
-  public polarAreaChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail Sales', 'Telesales', 'Corporate Sales'];
-  public polarAreaChartData: number[] = [300, 500, 100, 40, 120];
-  public polarAreaLegend = true;
+         countryNames.forEach((el) => {
+            const ccases = this.cases.filter(c => c.name == el);
+            this.countryCases = [...this.countryCases, {
+               data: ccases.map(d => d.newCase),
+               name: el
+            }];
+            console.log(this.countryCases)
+            this.countryDeaths = [...this.countryDeaths, {
+               data: ccases.map(d => d.newDeath),
+               name: el
+            }];
 
-  public polarAreaChartType = 'polarArea';
+            this.sumOfcases = [...this.sumOfcases, {
+               name: el,
+               y: ccases.reduce((accum, item) => accum + item.newCase, 0) / totalcases * 100
+            }];
 
-  // events
-  public chartClicked(e: any): void {
-    console.log(e);
-  }
+            this.sumOfdeaths = [...this.sumOfdeaths, {
+               name: el,
+               y: (ccases.reduce((accum, item) => accum + item.newDeath, 0) / totaldeaths) * 100
+            }];
 
-  public chartHovered(e: any): void {
-    console.log(e);
-  }
+
+         });
+         console.log(this.sumOfcases);
+         console.log(this.sumOfdeaths);
+
+
+         this.chartOptions.series = this.countryCases;
+         this.chartOptions.xAxis.categories = this.date;
+
+         this.chartOptions1.series = this.countryDeaths;
+         this.chartOptions1.xAxis.categories = this.date;
+
+         this.chartOptions2.series = [{
+            name: 'Cases',
+            colorByPoint: true,
+            data: this.sumOfcases
+         }]
+
+         this.chartOptions3.series = [{
+            name: 'Deaths',
+            colorByPoint: true,
+            data: this.sumOfdeaths
+         }]
+
+       this.chartOptions4.series = [{
+          name:'Cases',
+          data:this.dailycases    
+       },
+       {
+          name:'Deaths',
+          data:this.dailydeaths
+       }
+      
+      
+      ]
+             this.chartOptions4.xAxis.categories = this.date;
+
+         this.updateFromInput = true;
+      });
+   }
 
 }

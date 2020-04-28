@@ -3,11 +3,13 @@ import { ChartsModule } from 'ng2-charts';
 
 import { ChartJSComponent } from './chartjs.component';
 import { ChartJSRoutingModule } from './chartjs-routing.module';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 @NgModule({
   imports: [
     ChartJSRoutingModule,
-    ChartsModule
+    ChartsModule,
+    HighchartsChartModule
   ],
   declarations: [ ChartJSComponent ]
 })

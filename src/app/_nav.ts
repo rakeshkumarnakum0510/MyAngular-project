@@ -25,6 +25,21 @@ export const navItems: INavData[] = [
     icon: 'icon-pencil'
   },
   {
+    name: 'Add Cases',
+    url: '/base/forms',
+    icon: 'icon-puzzle'
+  },
+  {
+    name: 'Country List',
+    url: '/base/tables',
+    icon: 'icon-puzzle'
+  },
+  {
+    name: 'Charts',
+    url: '/charts',
+    icon: 'icon-pie-chart'
+  },
+  {
     title: true,
     name: 'Components'
   },
