@@ -3,7 +3,7 @@
     <div class="card-header">
       Line Chart
       <div class="card-header-actions">
-        <a href="http://www.chartjs.org">
+        <a href="/dashboard">
           <small class="text-muted">docs</small>
         </a>
       </div>
@@ -16,20 +16,19 @@
     <div class="card-header">
      Pie Chart
       <div class="card-header-actions">
-        <a href="http://www.chartjs.org">
+        <a href="/dashboard">
           <small class="text-muted">docs</small>
         </a>
       </div>
     </div>
-    <highcharts-chart class="chart-cases" [Highcharts]="Highcharts" [options]="chartOptions2"
+    <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions2"
       [(update)]="updateFromInput" [oneToOne]="true">
     </highcharts-chart>
-    <highcharts-chart class="chart-cases" [Highcharts]="Highcharts" [options]="chartOptions3"
-    [(update)]="updateFromInput" [oneToOne]="true">
-  </highcharts-chart>
-  </div>
-  <div class="card">
    
   </div>
+  <div class="card">
+    <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions3"
+    [(update)]="updateFromInput" [oneToOne]="true">
+  </highcharts-chart>
 </div>
-
+</div>

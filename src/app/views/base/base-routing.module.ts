@@ -18,13 +18,10 @@ import { EditComponent } from './edit.component';
 const routes: Routes = [
   {
     path: '',
-    data: {
-      title: 'Base'
-    },
     children: [
       {
         path: '',
-        redirectTo: 'cards'
+        redirectTo: 'tables'
       },
       {
         path: 'cards',
@@ -37,7 +34,7 @@ const routes: Routes = [
         path: 'forms',
         component: FormsComponent,
         data: {
-          title: 'Forms'
+          title: 'Add Cases'
         }
       },
       {
@@ -51,7 +48,7 @@ const routes: Routes = [
         path: 'tables',
         component: TablesComponent,
         data: {
-          title: 'Tables'
+          title: 'Country List'
         }
       },
       {

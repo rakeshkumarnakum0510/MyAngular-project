@@ -25,7 +25,7 @@ export class LoginComponent {
       this.invalidLogin = false;
       this.loginSuccess = true;
       this.successMessage = 'Login Successful.';
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/base/tables']);
     }, () => {
       this.invalidLogin = true;
       this.loginSuccess = false;

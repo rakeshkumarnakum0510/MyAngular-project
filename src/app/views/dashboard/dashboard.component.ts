@@ -104,9 +104,9 @@ export class DashboardComponent implements OnInit {
     series: []
   };
   constructor(private caseService: CaseService, private router: Router) {
-    /*   if(!this.caseService.isUserLoggedIn()){
+    if(!this.caseService.isUserLoggedIn()){
        this.router.navigate(['/login']); 
-      } */
+      } 
   }
   ngOnInit(): void {
     this.getCases();
