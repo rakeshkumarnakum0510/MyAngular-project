@@ -1,14 +1,54 @@
 <div class="animated fadeIn">
+  <div class="row" style="justify-content: space-around;">
+  <div class="col-sm-6 col-lg-3">
+    <div class="card text-white bg-primary">
+      <div class="card-body pb-0" style="text-align: center; height: 125px;">
+        <div>Todays Cases</div>
+        <div class="text-value" style="padding-top: 5px; font-size: 35PX;"> {{todaycases}}</div>
+      </div>
+    </div>
+  </div><!--/.col-->
+  <div class="col-sm-6 col-lg-3">
+    <div class="card text-white bg-warning">
+      <div class="card-body pb-0" style="text-align: center; height: 125px;">
+        <div>Todays Deaths</div>
+        <div class="text-value" style="padding-top: 5px; font-size: 35PX;"> {{todaydeaths}}</div>
+      </div>
+    </div>
+  </div><!--/.col-->
+  <div class="col-sm-6 col-lg-3">
+    <div class="card text-white bg-success">
+      <div class="card-body pb-0" style="text-align: center; height: 125px;">
+        <div type="button" class="btn btn-transparent p-0 float-right">
+          + {{todaycases}}
+        </div>
+        <div>Total Cases</div>
+        <div class="text-value" style="padding-top: 5px; font-size: 35PX;"> {{totalcases}}</div>
+      </div>
+    </div>
+  </div><!--/.col-->
+  <div class="col-sm-6 col-lg-3">
+    <div class="card text-white bg-danger">
+      <div class="card-body pb-0" style="text-align: center; height: 125px;">
+        <div type="button" class="btn btn-transparent p-0 float-right">
+         + {{todaydeaths}}
+        </div>
+        <div>Total Deaths</div>
+        <div class="text-value" style="padding-top: 5px; font-size: 35PX;"> {{totaldeaths}}</div>
+      </div>
+    </div>
+  </div><!--/.col-->
+</div>
   <div class="card">
     <div class="card-header">
       Line Chart
-      <div class="card-header-actions">
+    <!--   <div class="card-header-actions">
         <a href="/dashboard">
           <small class="text-muted">docs</small>
         </a>
-      </div>
+      </div> -->
     </div>
-    <highcharts-chart style="width:1087;"  [Highcharts]="Highcharts" [options]="chartOptions4"
+    <highcharts-chart style="width:1087px;"  [Highcharts]="Highcharts" [options]="chartOptions4"
       [(update)]="updateFromInput" [oneToOne]="true">
     </highcharts-chart>
   </div>
@@ -21,13 +61,13 @@
         </a>
       </div>
     </div>
-    <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions2"
+    <highcharts-chart  style="width:1087px;" [Highcharts]="Highcharts" [options]="chartOptions2"
       [(update)]="updateFromInput" [oneToOne]="true">
     </highcharts-chart>
    
   </div>
   <div class="card">
-    <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions3"
+    <highcharts-chart  style="width:1087px;" [Highcharts]="Highcharts" [options]="chartOptions3"
     [(update)]="updateFromInput" [oneToOne]="true">
   </highcharts-chart>
 </div>

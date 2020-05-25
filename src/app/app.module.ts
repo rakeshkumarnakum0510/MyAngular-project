@@ -43,6 +43,7 @@ import { ChartsModule } from 'ng2-charts';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpInterceptorService } from './httpInterceptor.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -60,7 +61,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ChartsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   declarations: [
     AppComponent,

@@ -48,6 +48,7 @@ import { NavbarsComponent } from './navbars/navbars.component';
 // Components Routing
 import { BaseRoutingModule } from './base-routing.module';
 import { EditComponent } from './edit.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -55,6 +56,7 @@ import { EditComponent } from './edit.component';
     FormsModule,
     ReactiveFormsModule,
     BaseRoutingModule,
+    NgbModule,
     BsDropdownModule.forRoot(),
     TabsModule,
     CarouselModule.forRoot(),
@@ -77,7 +79,7 @@ import { EditComponent } from './edit.component';
     ProgressComponent,
     TooltipsComponent,
     NavbarsComponent,
-    EditComponent
+    EditComponent,
     ]
 })
 export class BaseModule { }

@@ -12,13 +12,17 @@ export class DashboardComponent implements OnInit {
   countryNames = [];
   sumOfcases = [];
   sumOfdeaths = [];
-
+  totalcases = 0;
+  totaldeaths = 0;
+  todaycases = [];
+  todaydeaths = [];
   cases: Case[] = [];
   updateFromInput = false;
   Highcharts = Highcharts;
   date = [];
   dailycases = [];
   dailydeaths = [];
+
   chartOptions2 = {
     chart: {
       type: 'pie'
@@ -26,6 +30,9 @@ export class DashboardComponent implements OnInit {
     title: {
       text: 'Corona Total Cases Pie Charts'
     },
+    credits: {
+      enabled: false
+  },
     tooltip: {
       pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
     },
@@ -38,6 +45,13 @@ export class DashboardComponent implements OnInit {
       pie: {
         allowPointSelect: true,
         cursor: 'pointer',
+        colors: [
+          '#4dbd74',
+          '#2f353a',
+          '#20a8d8',
+          '#ffc107',
+          '#f86c6b'
+        ],
         dataLabels: {
           enabled: false
         },
@@ -55,6 +69,9 @@ export class DashboardComponent implements OnInit {
     title: {
       text: 'Corona Total Death Cases Pie Charts'
     },
+    credits: {
+      enabled: false
+  },
     tooltip: {
       pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
     },
@@ -67,6 +84,13 @@ export class DashboardComponent implements OnInit {
       pie: {
         allowPointSelect: true,
         cursor: 'pointer',
+        colors: [
+          '#4dbd74',
+          '#2f353a',
+          '#20a8d8',
+          '#ffc107',
+          '#f86c6b'
+        ],
         dataLabels: {
           enabled: false
         },
@@ -82,6 +106,9 @@ export class DashboardComponent implements OnInit {
     title: {
       text: 'Daily Corona Cases'
     },
+    credits: {
+      enabled: false
+  },
     subtitle: {
       text: '----'
     },
@@ -103,21 +130,22 @@ export class DashboardComponent implements OnInit {
     },
     series: []
   };
+
   constructor(private caseService: CaseService, private router: Router) {
-    if(!this.caseService.isUserLoggedIn()){
-       this.router.navigate(['/login']); 
-      } 
+    if (!this.caseService.isUserLoggedIn()) {
+      this.router.navigate(['/login']);
+    }
   }
+
   ngOnInit(): void {
     this.getCases();
   }
 
-
   getCases(): void {
     this.caseService.getCases().subscribe(data => {
       this.cases = data;
-      let totalcases = this.cases.reduce((accum, item) => accum + item.newCase, 0);
-      let totaldeaths = this.cases.reduce((accum, item) => accum + item.newDeath, 0);
+      this.totalcases = this.cases.reduce((accum, item) => accum + item.newCase, 0);
+      this.totaldeaths = this.cases.reduce((accum, item) => accum + item.newDeath, 0);
 
       this.date = [...new Set(this.cases.map(item => item.date))];
       this.date.forEach((e) => {
@@ -127,17 +155,22 @@ export class DashboardComponent implements OnInit {
         this.dailydeaths = [... this.dailydeaths, dcases.reduce((accum, item) => accum + item.newDeath, 0),];
       });
 
+      this.todaycases = [...this.dailycases.slice(-1)[0]];
+      this.todaydeaths = [...this.dailydeaths.slice(-1)[0]];
+
+
+
       const countryNames = [...new Set(this.cases.map(item => item.name))];
       countryNames.forEach((el) => {
         const ccases = this.cases.filter(c => c.name == el);
         this.sumOfcases = [...this.sumOfcases, {
           name: el,
-          y: ccases.reduce((accum, item) => accum + item.newCase, 0) / totalcases * 100
+          y: ccases.reduce((accum, item) => accum + item.newCase, 0) / this.totalcases * 100
         }];
 
         this.sumOfdeaths = [...this.sumOfdeaths, {
           name: el,
-          y: (ccases.reduce((accum, item) => accum + item.newDeath, 0) / totaldeaths) * 100
+          y: (ccases.reduce((accum, item) => accum + item.newDeath, 0) / this.totaldeaths) * 100
         }];
 
 

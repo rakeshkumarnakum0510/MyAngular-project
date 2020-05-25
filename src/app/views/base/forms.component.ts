@@ -6,10 +6,11 @@ import { Router } from '@angular/router';
 @Component({
   templateUrl: 'forms.component.html'
 })
+
 export class FormsComponent implements OnInit {
   caseFormGroup: FormGroup;
   countries =[];
-
+  
   constructor(private caseService: CaseService, private router: Router) { }
 
   ngOnInit() {

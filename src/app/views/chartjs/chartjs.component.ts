@@ -26,6 +26,9 @@ export class ChartJSComponent implements OnInit{
       title: {
          text: 'Corona New Cases column charts'
       },
+      credits: {
+         enabled: false
+     },
       series: [],
       xAxis: {
          categories: []
@@ -47,6 +50,9 @@ export class ChartJSComponent implements OnInit{
       title: {
          text: 'Corona Death Cases column charts'
       },
+      credits: {
+         enabled: false
+     },
       series: [],
       xAxis: {
          categories: []
@@ -68,6 +74,9 @@ export class ChartJSComponent implements OnInit{
       title: {
          text: 'Corona Total Cases Pie Charts'
       },
+      credits: {
+         enabled: false
+     },
       tooltip: {
          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
       },
@@ -80,6 +89,13 @@ export class ChartJSComponent implements OnInit{
          pie: {
             allowPointSelect: true,
             cursor: 'pointer',
+            colors: [
+               '#4dbd74',
+               '#2f353a',
+               '#20a8d8',
+               '#ffc107',
+               '#f86c6b'
+             ],
             dataLabels: {
                enabled: false
             },
@@ -98,6 +114,9 @@ export class ChartJSComponent implements OnInit{
       title: {
          text: 'Corona Total Death Cases Pie Charts'
       },
+      credits: {
+         enabled: false
+     },
       tooltip: {
          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
       },
@@ -110,6 +129,13 @@ export class ChartJSComponent implements OnInit{
          pie: {
             allowPointSelect: true,
             cursor: 'pointer',
+            colors: [
+               '#4dbd74',
+               '#2f353a',
+               '#20a8d8',
+               '#ffc107',
+               '#f86c6b'
+             ],
             dataLabels: {
                enabled: false
             },
@@ -125,6 +151,9 @@ export class ChartJSComponent implements OnInit{
      title: {
          text: 'Daily Corona Cases'
      },
+     credits: {
+      enabled: false
+  },
      subtitle: {
          text: '----'
      },
@@ -147,9 +176,9 @@ export class ChartJSComponent implements OnInit{
      series: []
    };
    constructor(private caseService: CaseService, private router: Router) {
-      /*   if(!this.caseService.isUserLoggedIn()){
+      if(!this.caseService.isUserLoggedIn()){
          this.router.navigate(['/login']); 
-        } */
+        } 
    }
 
    ngOnInit(): void {
@@ -162,8 +191,7 @@ export class ChartJSComponent implements OnInit{
          const totalcases = this.cases.reduce((accum, item) => accum + item.newCase, 0);
          const totaldeaths = this.cases.reduce((accum, item) => accum + item.newDeath, 0);
          /* const total=this.cases.reduce((p,c) => p+c.newCase,0); */
-         console.log(totalcases);
-         console.log(totaldeaths);
+        
 
          this.date = [...new Set(this.cases.map(item => item.date))];
          const countryNames = [...new Set(this.cases.map(item => item.name))];
@@ -176,7 +204,7 @@ export class ChartJSComponent implements OnInit{
             this.dailycases = [... this.dailycases,  dcases.reduce((accum, item) => accum + item.newCase, 0),
             ];
             this.dailydeaths = [ ... this.dailydeaths,  dcases.reduce((accum, item) => accum + item.newDeath, 0), ]
-            console.warn(this.dailycases);
+           
          });
 
 
@@ -204,8 +232,7 @@ export class ChartJSComponent implements OnInit{
 
 
          });
-         console.log(this.sumOfcases);
-         console.log(this.sumOfdeaths);
+        
 
 
          this.chartOptions.series = this.countryCases;

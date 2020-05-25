@@ -14,10 +14,12 @@ export class TablesComponent implements OnInit{
     this.getCases();
   }
   getCases(): void {
+   let todaydate = new Date().toISOString().split('T')[0]; 
+    let td = JSON.stringify(todaydate); 
     this.caseService.getCases().subscribe(data => { 
       this.cases = data ;
-      this.todayCases=this.cases.filter( a => a.date == "29/04/2020");
-
+      this.todayCases=this.cases.filter( a => a.date == JSON.parse(td));
+       console.log(this.todayCases);
       this.todayCases.forEach((el)=>{
          const ccases = this.cases.filter(c => c.name == el.name);
              const sumOfcases =ccases.reduce((accum,item) => accum + item.newCase, 0);
