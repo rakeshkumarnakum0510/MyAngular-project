@@ -104,7 +104,7 @@ export class DashboardComponent implements OnInit {
       type: 'line'
     },
     title: {
-      text: 'Daily Corona Cases'
+      text: 'Total Cases'
     },
     credits: {
       enabled: false

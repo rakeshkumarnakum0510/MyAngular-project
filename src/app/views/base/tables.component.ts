@@ -19,15 +19,16 @@ export class TablesComponent implements OnInit{
     this.caseService.getCases().subscribe(data => { 
       this.cases = data ;
       this.todayCases=this.cases.filter( a => a.date == JSON.parse(td));
-       console.log(this.todayCases);
+      // console.log(this.todayCases);
       this.todayCases.forEach((el)=>{
          const ccases = this.cases.filter(c => c.name == el.name);
+         console.warn(ccases);
              const sumOfcases =ccases.reduce((accum,item) => accum + item.newCase, 0);
              const sumOfdeaths =ccases.reduce((accum,item) => accum + item.newDeath, 0);
           el.totalCases= sumOfcases;
           el.totalDeaths = sumOfdeaths;
-        console.log(sumOfcases);
-        console.log(sumOfdeaths);
+       // console.log(sumOfcases);
+       // console.log(sumOfdeaths);
       }); 
     });
      

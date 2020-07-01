@@ -4,23 +4,23 @@ export const navItems: INavData[] = [
   {
     name: 'Dashboard',
     url: '/dashboard',
-    icon: 'icon-speedometer',
+    icon: 'cui-dashboard',
   
   },
   {
     name: 'Add Cases',
     url: '/base/forms',
-    icon: 'icon-star'
+    icon: 'icon-plus'
   },
   {
     name: 'Country List',
     url: '/base/tables',
-    icon: 'icon-puzzle'
+    icon: 'icon-flag'
   },
   {
     name: 'Charts',
     url: '/charts',
-    icon: 'icon-pie-chart'
+    icon: 'icon-chart'
   },
 
 ];
